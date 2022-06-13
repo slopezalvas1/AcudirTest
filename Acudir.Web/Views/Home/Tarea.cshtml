@@ -1,0 +1,141 @@
+﻿@model Acudir.Infraestructure.ViewModels.PersonaListViewModel
+@{
+    ViewData["Title"] = "Entrevista Técnica";
+}
+
+<div class="row">
+    <div class="content" style="width:100%">
+        <h2>Entrevista Técnica</h2>
+
+
+        <div class="card card-primary">
+            <div class="card-header" style="background-color: #3C8DAD ">
+
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-primary">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold">Nombre y Apellido </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input asp-for="PersonaActual.NombreApellido" disabled>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold">DNI </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input asp-for="PersonaActual.Documento" disabled>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold">Telefono </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input asp-for="PersonaActual.Telefono" disabled>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold">Mail </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input asp-for="PersonaActual.Mail" disabled>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="font-weight-bold">Provincia </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input asp-for="PersonaActual.Provincia" disabled>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <input asp-for="PersonaActual.ID" type="hidden" id="idActual" />
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <input id="btnSiguiente" type="button" class="btn btn-info siguientePersona" value="Siguiente" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <table id="perfiles-vistos" width="100%">
+                            <tbody id="perfiles-vistos-tbody">
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <h3>Perfiles vistos:</h3>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+
+
+            var personasVistasCount = @(ViewBag.PersonasListCount ?? 0);
+            var idsList = [];
+
+            //Busca nueva persona
+            $(document).on('click', '#btnSiguiente', function () {
+
+                var tableRow =  $('#perfiles-vistos-tbody');
+
+                const id = $('#idActual').val();
+
+                idsList.push(id.toString());
+
+                $.get({
+                    url: '@Url.Action("BuscarPersona", "Home")?count='
+                        + personasVistasCount
+                        + '&idList='
+                        + idsList,
+                
+                    success: function (data) {
+                        personasVistasCount += 1;
+                        tableRow.append(data);
+                        
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        personasVistasCount -= 1;
+                        alert('Error.' + thrownError);
+                    }
+                });
+            });
+
+
+
+        });
+    </script>
+}

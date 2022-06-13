@@ -1,0 +1,53 @@
+﻿@model Acudir.Infraestructure.ViewModels.PersonaListViewModel
+
+@{
+    var position = (int)ViewBag.PersonasListCount;
+}
+
+<tr>
+    <td>
+        <div class="card card-primary">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="font-weight-bold">Nombre y Apellido </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input asp-for="PersonasAnterioresList[position].NombreApellido" disabled>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="font-weight-bold">DNI </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input asp-for="PersonasAnterioresList[position].Documento" disabled>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="font-weight-bold">Telefono </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input asp-for="PersonasAnterioresList[position].Telefono" disabled>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="font-weight-bold">Mail </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input asp-for="PersonasAnterioresList[position].Mail" disabled>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="font-weight-bold">Provincia </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input asp-for="PersonasAnterioresList[position].Provincia" disabled>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+    </td>
+</tr>
+
